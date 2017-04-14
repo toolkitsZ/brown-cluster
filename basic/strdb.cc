@@ -184,10 +184,12 @@ void read_text(const char *file, int_func *func, StrDB &db, bool read_cached, bo
       }
       if(write_cached) logs("Writing to " << int_file);
 
-      char s[16384];
+      // char s[16384];
+      string s;
       char buf[16384]; int buf_i = 0; // Output buffer
       while(in >> s) { // Read a string
-        int a = db.lookup(s, incorp_new, -1);
+        if (s.length() >= 1000) continue;
+        int a = db.lookup(s.c_str(), incorp_new, -1);
         if(func) func(a);
 
         if(write_cached) {
